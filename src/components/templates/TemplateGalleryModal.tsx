@@ -2,202 +2,138 @@
 
 import React from 'react';
 import { useAppStore } from '@/store/useAppStore';
-import { X, LayoutTemplate, Award, Megaphone, BookOpen, FileSpreadsheet, Library } from 'lucide-react';
-
-interface TemplateOption {
-  id: string;
-  title: string;
-  category: string;
-  description: string;
-  icon: React.ReactNode;
-  content: string;
-  facultyId?: string;
-}
-
-const RMO_TEMPLATES: TemplateOption[] = [
-  {
-    id: 'kenneth-dike-library',
-    title: 'Kenneth Dike Library Report',
-    category: 'Library & Archival Services',
-    description: 'Specialized section layout for Kenneth Dike Library research archives, digital repository & library milestones.',
-    icon: <Library size={24} className="text-black" />,
-    facultyId: 'kenneth_dike_library',
-    content: `
-      <div style="background-color: #000000; color: #ffffff; padding: 24px 16px; margin: 32px 0 24px 0; text-align: center; font-weight: bold; font-size: 22px; letter-spacing: 1.5px; border-radius: 4px; border-left: 8px solid #DAA520; text-transform: uppercase;">
-        KENNETH DIKE LIBRARY
-      </div>
-
-      <h3>University Librarian's Address</h3>
-      <p>Kenneth Dike Library (KDL), the premier university library in Nigeria, continues to expand its digital research repositories, open-access journal databases, and archival preservation systems in support of academic excellence.</p>
-
-      <h3>2024/2025 Key Digital Infrastructure Projects</h3>
-      <ul>
-        <li><strong>UI Institutional Repository Upgrade:</strong> Over 15,000 digitized theses, dissertations, and research publications indexed for global access.</li>
-        <li><strong>Research Information Literacy Workshops:</strong> Over 2,500 postgraduate researchers trained on digital citation management and ethical research publishing.</li>
-        <li><strong>Rare Archival Preservation Initiative:</strong> Digital preservation of historical manuscripts and African heritage collections.</li>
-      </ul>
-    `,
-  },
-  {
-    id: 'monthly-digest',
-    title: 'Monthly Research Digest',
-    category: 'General Bulletin',
-    description: 'Standard monthly newsletter structure for Director note, grants, and department highlights.',
-    icon: <BookOpen size={24} className="text-indigo-600" />,
-    content: `
-      <div style="border-bottom: 3px solid #002147; padding-bottom: 12px; margin-bottom: 20px;">
-        <h2 style="color: #002147; margin: 0;">UNIVERSITY OF IBADAN</h2>
-        <h3 style="color: #DAA520; margin: 4px 0 0 0;">RESEARCH MANAGEMENT OFFICE (RMO) NEWSLETTER</h3>
-        <p style="color: #666; font-size: 12px;">Monthly Research & Innovation Bulletin</p>
-      </div>
-
-      <h3>Director's Desk</h3>
-      <p>The Research Management Office remains dedicated to fostering cutting-edge research, facilitating collaborative grants, and driving impactful innovations across all faculties.</p>
-
-      <h3>Key Institutional Milestones</h3>
-      <ul>
-        <li>Over ₦500 Million in competitive external grants secured this quarter.</li>
-        <li>Submissions open for the Annual UI Research & Innovation Fair.</li>
-        <li>New IP & Technology Transfer guidelines published.</li>
-      </ul>
-    `,
-  },
-  {
-    id: 'grant-call',
-    title: 'Grant & Funding Call Announcement',
-    category: 'Funding & Grants',
-    description: 'Promotional layout for TETFUND, international grants, and research funding calls.',
-    icon: <Award size={24} className="text-amber-600" />,
-    content: `
-      <div style="border-left: 4px solid #DAA520; padding-left: 16px; margin-bottom: 24px; background: #fffdf5; p: 12px;">
-        <h2 style="color: #002147; margin: 0;">CALL FOR RESEARCH PROPOSALS</h2>
-        <h4 style="color: #DAA520; margin: 4px 0;">University of Ibadan RMO Grant Alert</h4>
-      </div>
-
-      <h3>Grant Details</h3>
-      <p><strong>Funding Body:</strong> International Development Research Centre (IDRC) / TETFUND</p>
-      <p><strong>Target Audience:</strong> Senior & Postdoctoral Researchers</p>
-      <p><strong>Grant Ceiling:</strong> Up to $100,000 per project team</p>
-
-      <h3>Eligibility & Priority Themes</h3>
-      <ul>
-        <li>Sustainable Agriculture & Food Security</li>
-        <li>Public Health & Renewable Energy Solutions</li>
-        <li>Digital Humanities & Educational Technology</li>
-      </ul>
-
-      <p><strong>Internal Submission Deadline:</strong> October 30, 2026</p>
-    `,
-  },
-  {
-    id: 'faculty-spotlight',
-    title: 'Faculty Innovation Spotlight',
-    category: 'Research Spotlight',
-    description: 'Highlight exceptional researchers, published papers, and breakthrough patents.',
-    icon: <FileSpreadsheet size={24} className="text-emerald-600" />,
-    content: `
-      <div style="border-bottom: 2px solid #002147; padding-bottom: 8px; margin-bottom: 16px;">
-        <h2 style="color: #002147;">FACULTY RESEARCH SPOTLIGHT</h2>
-        <p style="color: #DAA520; font-weight: bold;">Celebrating Academic Excellence at UI</p>
-      </div>
-
-      <h3>Featured Breakthrough</h3>
-      <p>We celebrate the remarkable achievement of the interdisciplinary research team led by <strong>Prof. A. O. Adeleke</strong> on groundbreaking biomedical research.</p>
-
-      <blockquote style="border-left: 3px solid #002147; padding-left: 12px; color: #444; font-style: italic;">
-        "Our mission is to translate laboratory discoveries into real-world health solutions for Nigeria and Africa."
-      </blockquote>
-
-      <h3>Publication Citation</h3>
-      <p><em>Journal of African Scientific Innovations (2026), Vol. 18, pp. 104-120.</em></p>
-    `,
-  },
-  {
-    id: 'workshop-call',
-    title: 'Workshop & Conference Call',
-    category: 'Events & Seminars',
-    description: 'Event notice for RMO grant-writing workshops and research methodology seminars.',
-    icon: <Megaphone size={24} className="text-purple-600" />,
-    content: `
-      <div style="background-color: #002147; color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-        <h2 style="color: #DAA520; margin: 0;">UI RMO CAPACITY BUILDING WORKSHOP</h2>
-        <p style="margin: 4px 0 0 0;">Mastering Competitive Grant Writing & Project Management</p>
-      </div>
-
-      <h3>Event Schedule & Venue</h3>
-      <p>📅 <strong>Date:</strong> November 12–14, 2026</p>
-      <p>📍 <strong>Venue:</strong> Trenchard Hall, University of Ibadan</p>
-      <p>🕒 <strong>Time:</strong> 9:00 AM Daily</p>
-
-      <h3>Key Workshop Modules</h3>
-      <ul>
-        <li>Structuring Winning Grant Proposals</li>
-        <li>Budgeting & Compliance for International Donors</li>
-        <li>Ethical Approvals & Intellectual Property Protection</li>
-      </ul>
-    `,
-  },
-];
+import { X, BookOpen, Sparkles, Building2, Newspaper } from 'lucide-react';
 
 export const TemplateGalleryModal: React.FC = () => {
   const { isTemplateModalOpen, setTemplateModalOpen, setContent, setTitle, setActiveFacultyId } = useAppStore();
 
   if (!isTemplateModalOpen) return null;
 
-  const handleSelectTemplate = (template: TemplateOption) => {
-    setTitle(`UI RMO - ${template.title}`);
-    setContent(template.content);
-    if (template.facultyId) {
-      setActiveFacultyId(template.facultyId);
-    }
+  const handleApplyTemplate = (facultyId: string, titleText: string, htmlContent: string) => {
+    setActiveFacultyId(facultyId);
+    setTitle(titleText);
+    setContent(htmlContent);
     setTemplateModalOpen(false);
   };
 
+  const kdlTemplateHTML = `
+    <!-- KDL Official Faculty Banner Divider -->
+    <div style="background-color: #000000; color: #ffffff; padding: 20px 24px; margin: 0 0 28px 0; font-weight: bold; font-size: 22px; letter-spacing: 1.5px; border-radius: 4px; border-left: 8px solid #DAA520; text-transform: uppercase; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border-right: 2px solid #DAA520;">
+      KENNETH DIKE LIBRARY (KDL)
+    </div>
+
+    <!-- Librarian Address Section Card -->
+    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; margin-bottom: 24px; border-left: 4px solid #000000; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+      <h3 style="color: #002147; font-size: 18px; margin-top: 0; margin-bottom: 10px; border-bottom: 2px solid #DAA520; padding-bottom: 6px;">
+        University Librarian's Address
+      </h3>
+      <p style="font-size: 14px; line-height: 1.7; color: #334155; margin: 0;">
+        Kenneth Dike Library (KDL), the premier university library in Nigeria, continues to expand its digital research repositories, open-access journal databases, and archival preservation systems in support of academic excellence across all faculties.
+      </p>
+    </div>
+
+    <!-- Key Infrastructure Projects Section -->
+    <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 20px; margin-bottom: 24px;">
+      <h3 style="color: #002147; font-size: 17px; margin-top: 0; margin-bottom: 14px;">
+        2024/2025 Key Digital Infrastructure Projects
+      </h3>
+
+      <ul style="margin: 0; padding-left: 20px; font-size: 13.5px; line-height: 1.8; color: #1e293b;">
+        <li style="margin-bottom: 10px;">
+          <strong style="color: #002147;">UI Institutional Repository Upgrade:</strong> Over 15,000 digitized theses, dissertations, and research publications indexed for global open access.
+        </li>
+        <li style="margin-bottom: 10px;">
+          <strong style="color: #002147;">Research Information Literacy Workshops:</strong> Over 2,500 postgraduate researchers trained on digital citation management and ethical research publishing.
+        </li>
+        <li style="margin-bottom: 10px;">
+          <strong style="color: #002147;">Rare Archival Preservation Initiative:</strong> Digital preservation of historical manuscripts and African heritage collections.
+        </li>
+      </ul>
+    </div>
+
+    <!-- Active Research Support & E-Resources Grid -->
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px;">
+      <div style="border: 1px solid #e2e8f0; padding: 14px; border-radius: 6px; background: #ffffff;">
+        <h4 style="color: #000000; font-size: 14px; margin-top: 0; margin-bottom: 6px; border-bottom: 1.5px solid #DAA520; padding-bottom: 4px;">
+          E-Resources Subscription
+        </h4>
+        <p style="font-size: 12.5px; color: #475569; margin: 0; line-height: 1.5;">
+          Direct access to ScienceDirect, JSTOR, Scopus, IEEE Xplore, and Web of Science for all UI staff and students.
+        </p>
+      </div>
+      <div style="border: 1px solid #e2e8f0; padding: 14px; border-radius: 6px; background: #ffffff;">
+        <h4 style="color: #000000; font-size: 14px; margin-top: 0; margin-bottom: 6px; border-bottom: 1.5px solid #DAA520; padding-bottom: 4px;">
+          Plagiarism Clearance Services
+        </h4>
+        <p style="font-size: 12.5px; color: #475569; margin: 0; line-height: 1.5;">
+          Turnitin originality verification and manuscript compliance support for all postgraduate theses.
+        </p>
+      </div>
+    </div>
+  `;
+
   return (
-    <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-white rounded-xl shadow-xl max-w-2xl w-full p-6 space-y-5 animate-in fade-in zoom-in-95">
-        <div className="flex items-center justify-between border-b pb-3">
-          <div className="flex items-center space-x-2 text-gray-900 font-semibold text-lg">
-            <LayoutTemplate size={22} className="text-indigo-600" />
-            <span>UI RMO Newsletter & Faculty Templates</span>
+    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+      <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[85vh] overflow-hidden flex flex-col animate-in fade-in zoom-in-95">
+        {/* Header */}
+        <div className="p-5 border-b border-gray-200 flex items-center justify-between bg-gradient-to-r from-[#002147] to-[#003366] text-white">
+          <div className="flex items-center space-x-2">
+            <Sparkles className="text-amber-400" size={20} />
+            <h2 className="font-bold text-lg">UI RMO Report Templates</h2>
           </div>
-          <button onClick={() => setTemplateModalOpen(false)} className="text-gray-400 hover:text-gray-600">
+          <button
+            onClick={() => setTemplateModalOpen(false)}
+            className="text-gray-300 hover:text-white p-1 rounded-lg transition-colors"
+          >
             <X size={20} />
           </button>
         </div>
 
-        <p className="text-xs text-gray-500">
-          Select a pre-formatted layout specifically designed for University of Ibadan Research Management Office bulletins and Library reports.
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[400px] overflow-y-auto pr-1">
-          {RMO_TEMPLATES.map((tmpl) => (
-            <div
-              key={tmpl.id}
-              onClick={() => handleSelectTemplate(tmpl)}
-              className="p-4 border border-gray-200 rounded-xl hover:border-indigo-500 hover:bg-indigo-50/40 transition-all cursor-pointer space-y-2 group"
-            >
-              <div className="flex items-center space-x-3">
-                <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-white transition-all">{tmpl.icon}</div>
-                <div>
-                  <h4 className="font-semibold text-gray-900 text-sm group-hover:text-indigo-600">{tmpl.title}</h4>
-                  <span className="text-[10px] font-medium bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
-                    {tmpl.category}
-                  </span>
-                </div>
+        {/* Template Options List */}
+        <div className="p-6 overflow-y-auto space-y-4 flex-1">
+          {/* Kenneth Dike Library Template */}
+          <div className="border-2 border-gray-900 rounded-xl p-5 bg-stone-50 hover:shadow-md transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <div className="flex items-center space-x-2">
+                <span className="w-3 h-3 rounded-full bg-black border border-amber-400"></span>
+                <h3 className="font-bold text-gray-900 text-base">Kenneth Dike Library (KDL) Report</h3>
               </div>
-              <p className="text-xs text-gray-500 leading-relaxed">{tmpl.description}</p>
+              <p className="text-xs text-gray-600">
+                Official report layout with Black & Gold banner divider, Librarian address card, and digital repository metrics.
+              </p>
             </div>
-          ))}
-        </div>
+            <button
+              onClick={() => handleApplyTemplate('kdl', 'UI RMO - Kenneth Dike Library Report', kdlTemplateHTML)}
+              className="bg-black hover:bg-gray-800 text-white font-semibold text-xs px-4 py-2.5 rounded-lg transition-all border border-amber-400 whitespace-nowrap"
+            >
+              Apply KDL Template
+            </button>
+          </div>
 
-        <div className="flex justify-end border-t pt-3">
-          <button
-            onClick={() => setTemplateModalOpen(false)}
-            className="px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded-lg transition-all"
-          >
-            Cancel
-          </button>
+          {/* Agriculture Template */}
+          <div className="border border-green-200 rounded-xl p-5 bg-emerald-50/50 hover:shadow-md transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <div className="flex items-center space-x-2">
+                <span className="w-3 h-3 rounded-full bg-[#00A651]"></span>
+                <h3 className="font-bold text-gray-900 text-base">Faculty of Agriculture Report</h3>
+              </div>
+              <p className="text-xs text-gray-600">
+                Green faculty theme with Dean foreword, crop science research outputs, and grant awards.
+              </p>
+            </div>
+            <button
+              onClick={() =>
+                handleApplyTemplate(
+                  'agriculture',
+                  'UI RMO - Faculty of Agriculture Annual Report',
+                  `<div style="background-color: #00A651; color: white; padding: 20px; font-weight: bold; font-size: 22px; border-radius: 4px; border-left: 8px solid #002147; margin-bottom: 24px;">FACULTY OF AGRICULTURE</div><h3>Dean's Annual Address</h3><p>The Faculty of Agriculture continues to lead pioneer research in sustainable food security, bio-fortified crop breeding, and digital precision farming...</p>`
+                )
+              }
+              className="bg-[#00A651] hover:bg-green-700 text-white font-semibold text-xs px-4 py-2.5 rounded-lg transition-all whitespace-nowrap"
+            >
+              Apply Agriculture Template
+            </button>
+          </div>
         </div>
       </div>
     </div>
