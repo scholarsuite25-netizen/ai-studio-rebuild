@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="100%" height="100%">
+  <!-- Shield Outer Border & Background -->
+  <path
+    d="M 20 10 H 180 V 130 C 180 185 100 225 100 225 C 100 225 20 185 20 130 Z"
+    fill="#000000"
+    stroke="#ffffff"
+    stroke-width="5"
+  />
+  <path
+    d="M 24 14 H 176 V 128 C 176 181 100 220 100 220 C 100 220 24 181 24 128 Z"
+    fill="none"
+    stroke="#000000"
+    stroke-width="3"
+  />
+
+  <!-- Sunburst Rays (Gold/Yellow) -->
+  <g fill="#FFCC00">
+    <!-- Top Central Rays -->
+    <polygon points="100,50 94,110 106,110" />
+    <polygon points="100,50 82,115 95,120" />
+    <polygon points="100,50 105,120 118,115" />
+    <polygon points="100,50 72,125 86,132" />
+    <polygon points="100,50 114,132 128,125" />
+    
+    <!-- Outer Radial Rays around book -->
+    <polygon points="100,105 40,70 60,95" />
+    <polygon points="100,105 35,95 50,115" />
+    <polygon points="100,105 35,120 52,135" />
+    <polygon points="100,105 45,145 60,158" />
+    <polygon points="100,105 60,165 78,175" />
+    
+    <polygon points="100,105 160,70 140,95" />
+    <polygon points="100,105 165,95 150,115" />
+    <polygon points="100,105 165,120 148,135" />
+    <polygon points="100,105 155,145 140,158" />
+    <polygon points="100,105 140,165 122,175" />
+  </g>
+
+  <!-- Blue and White Wavy Confluence Y-Bands -->
+  <!-- White Background Layer -->
+  <path
+    d="M 20 10 Q 55 35 100 105 Q 145 35 180 10 H 152 Q 100 65 100 105 V 218 H 100 V 105 Q 100 65 48 10 Z"
+    fill="#ffffff"
+  />
+  <!-- Blue Inner Wavy Band -->
+  <path
+    d="M 26 10 Q 58 35 100 98 Q 142 35 174 10 H 158 Q 100 60 100 98 V 214 H 100 V 98 Q 100 60 42 10 Z"
+    fill="#0066CC"
+  />
+
+  <!-- Center Open Book -->
+  <g transform="translate(48, 62) scale(1.04)">
+    <!-- Red Outer Cover -->
+    <path
+      d="M 5 20 Q 50 8 95 20 V 68 Q 50 56 5 68 Z"
+      fill="#D32F2F"
+      stroke="#000000"
+      stroke-width="2.5"
+    />
+    <!-- White Inner Pages -->
+    <path
+      d="M 9 22 Q 50 11 91 22 V 64 Q 50 53 9 64 Z"
+      fill="#ffffff"
+    />
+    <!-- Spine Divide -->
+    <line x1="50" y1="11" x2="50" y2="64" stroke="#000000" stroke-width="2.5" />
+
+    <!-- Text Lines Left Page -->
+    <line x1="16" y1="28" x2="44" y2="28" stroke="#000000" stroke-width="1.8" />
+    <line x1="16" y1="36" x2="44" y2="36" stroke="#000000" stroke-width="1.8" />
+    <line x1="16" y1="44" x2="44" y2="44" stroke="#000000" stroke-width="1.8" />
+    <line x1="16" y1="52" x2="44" y2="52" stroke="#000000" stroke-width="1.8" />
+
+    <!-- Text Lines Right Page -->
+    <line x1="56" y1="28" x2="84" y2="28" stroke="#000000" stroke-width="1.8" />
+    <line x1="56" y1="36" x2="84" y2="36" stroke="#000000" stroke-width="1.8" />
+    <line x1="56" y1="44" x2="84" y2="44" stroke="#000000" stroke-width="1.8" />
+    <line x1="56" y1="52" x2="84" y2="52" stroke="#000000" stroke-width="1.8" />
+  </g>
+
+  <!-- Bottom Yellow Ribbon Scroll Motto RECTE SAPERE FONS -->
+  <g>
+    <!-- Ribbon Shadow/Outline -->
+    <path
+      d="M 8 190 Q 100 238 192 190 L 180 225 Q 100 248 20 225 Z"
+      fill="#FFCC00"
+      stroke="#000000"
+      stroke-width="2.5"
+    />
+    <!-- Ribbon Tails -->
+    <path d="M 8 190 L 0 215 L 20 225 Z" fill="#D4AF37" stroke="#000000" stroke-width="1.5" />
+    <path d="M 192 190 L 200 215 L 180 225 Z" fill="#D4AF37" stroke="#000000" stroke-width="1.5" />
+    
+    <!-- Text RECTE SAPERE FONS -->
+    <text
+      x="100"
+      y="222"
+      text-anchor="middle"
+      font-size="14"
+      font-weight="900"
+      fill="#000000"
+      font-family="serif"
+      letter-spacing="2"
+    >
+      RECTE SAPERE FONS
+    </text>
+  </g>
+</svg>
