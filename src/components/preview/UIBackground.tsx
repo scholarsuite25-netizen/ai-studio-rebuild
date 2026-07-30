@@ -19,8 +19,8 @@ export const UIBackground: React.FC = () => {
         </svg>
       </div>
 
-      {/* Top-Right Official UI Crest Logo Badge (174KB High-Res Original PNG) */}
-      <div className="absolute top-6 right-8 w-16 h-20 flex flex-col items-center z-10">
+      {/* Top-Right Official UI Crest Logo Badge (Pushed right with z-20) */}
+      <div className="absolute top-5 right-6 w-16 h-20 flex flex-col items-center z-20">
         <img src="/ui_logo.png" alt="University of Ibadan Crest Logo" className="w-full h-full drop-shadow-md object-contain" />
       </div>
 

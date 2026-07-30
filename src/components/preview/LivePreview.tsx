@@ -3,94 +3,78 @@
 import React, { useMemo } from 'react';
 import DOMPurify from 'dompurify';
 import { useAppStore } from '@/store/useAppStore';
-import { Eye, ShieldCheck, Stamp, BookOpen } from 'lucide-react';
 import { UIBackground } from './UIBackground';
+import { getFacultyById } from '@/lib/faculties';
 
 export const LivePreview: React.FC = () => {
-  const { content, title, viewMode, showWatermark, theme, bindingMargin } = useAppStore();
+  const { title, content, showWatermark, activeFacultyId, bindingMargin } = useAppStore();
+  const activeFaculty = getFacultyById(activeFacultyId);
 
+  // Sanitize raw HTML string
   const sanitizedContent = useMemo(() => {
     if (typeof window === 'undefined') return content;
-    return DOMPurify.sanitize(content);
+    return DOMPurify.sanitize(content, {
+      ADD_TAGS: ['iframe', 'style', 'img'],
+      ADD_ATTR: ['target', 'style', 'src', 'alt', 'class', 'width', 'height', 'align'],
+    });
   }, [content]);
 
-  // Dynamic Viewport Width container matching viewMode state
-  const containerWidthClass = {
-    desktop: 'w-full max-w-4xl',
-    tablet: 'w-[768px]',
-    mobile: 'w-[375px]',
-  }[viewMode];
-
-  // Binding Margin Gutter Padding
-  const bindingPaddingClass = {
-    standard: 'pl-8 md:pl-10 pr-8',
-    generous: 'pl-16 md:pl-24 pr-8 border-l-8 border-l-[#002147]/20',
-    spine_bound: 'pl-20 md:pl-28 pr-6 border-l-8 border-l-[#DAA520]',
-  }[bindingMargin];
+  // Binding Margin Gutter Padding (Generous = 1.5in / 85px left offset)
+  const marginPaddingClass = useMemo(() => {
+    switch (bindingMargin) {
+      case 'generous':
+        return 'pl-24 pr-12'; // 1.5" Binding Left Margin Clearance
+      case 'spine_bound':
+        return 'pl-28 pr-10'; // Extra Spine Clearance
+      default:
+        return 'px-12'; // Standard A4 Margin
+    }
+  }, [bindingMargin]);
 
   return (
-    <div
-      className={`flex flex-col h-full rounded-lg border overflow-hidden shadow-sm transition-colors ${
-        theme === 'dark' ? 'bg-gray-900 border-gray-800 text-gray-100' : 'bg-gray-100 border-gray-200 text-gray-900'
-      }`}
-    >
-      {/* Top Bar */}
-      <div
-        className={`px-4 py-2 flex items-center justify-between border-b text-xs font-medium ${
-          theme === 'dark' ? 'bg-gray-800 border-gray-700 text-gray-300' : 'bg-gray-200 border-gray-300 text-gray-600'
-        }`}
-      >
-        <div className="flex items-center space-x-2">
-          <Eye size={14} className="text-indigo-500" />
-          <span>UI 2025 Master Preview</span>
-        </div>
+    <div className="flex-1 bg-gray-200 overflow-y-auto p-4 md:p-8 flex justify-center items-start">
+      {/* A4 Sheet Container (210mm x 297mm / ~794px width) */}
+      <div className="relative bg-white shadow-2xl rounded-sm w-full max-w-[794px] min-h-[1123px] text-gray-900 font-sans transition-all duration-300">
+        
+        {/* Letterhead & Centered Watermark Background Layer */}
+        {showWatermark && <UIBackground />}
 
-        <div className="flex items-center space-x-3">
-          {bindingMargin !== 'standard' && (
-            <div className="flex items-center space-x-1 text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded font-semibold text-[11px] border border-indigo-200">
-              <BookOpen size={12} />
-              <span>Binding Clearance Active</span>
+        {/* Document Content Layer */}
+        <div className={`relative z-10 py-16 ${marginPaddingClass}`}>
+          {/* Main Document Header Title with pr-24 Right Padding so title never overlaps the top-right crest logo */}
+          {title && (
+            <div className="border-b-2 border-[#002147] pb-4 mb-8 pr-24">
+              <h1 className="text-3xl font-extrabold text-[#002147] tracking-tight leading-tight">
+                {title}
+              </h1>
+              <div className="flex items-center space-x-2 mt-2">
+                <span
+                  className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider"
+                  style={{ backgroundColor: activeFaculty.color, color: activeFaculty.textColor }}
+                >
+                  {activeFaculty.name}
+                </span>
+                <span className="text-xs text-gray-500">• UI Research Management Office</span>
+              </div>
             </div>
           )}
 
-          {showWatermark && (
-            <div className="flex items-center space-x-1 text-amber-700 bg-amber-50 px-2 py-0.5 rounded font-semibold text-[11px] border border-amber-200">
-              <Stamp size={12} />
-              <span>UI Letterhead Active</span>
+          {/* Render Sanitized HTML Body */}
+          <div
+            className="prose prose-slate max-w-none prose-headings:text-[#002147] prose-a:text-indigo-600 prose-img:rounded-md leading-relaxed text-sm"
+            dangerouslySetInnerHTML={{ __html: sanitizedContent }}
+          />
+
+          {/* Institutional Footer */}
+          <div className="mt-16 pt-6 border-t border-gray-200 flex items-center justify-between text-[11px] text-gray-500 font-medium">
+            <div>
+              <p className="font-bold text-[#002147]">UNIVERSITY OF IBADAN</p>
+              <p>Research Management Office (RMO) • www.ui.edu.ng</p>
             </div>
-          )}
-
-          <div className="flex items-center space-x-1 text-emerald-600">
-            <ShieldCheck size={14} />
-            <span className="hidden sm:inline">DOMPurify Active</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Frame Container */}
-      <div
-        className={`flex-1 overflow-y-auto p-4 flex justify-center items-start relative ${
-          theme === 'dark' ? 'bg-gray-950' : 'bg-gray-200/70'
-        }`}
-      >
-        <div
-          className={`relative min-h-[650px] shadow-2xl rounded-lg py-10 md:py-12 transition-all duration-300 ${containerWidthClass} ${bindingPaddingClass} ${
-            theme === 'dark' ? 'bg-gray-900 text-gray-100' : 'bg-white text-gray-900'
-          }`}
-        >
-          {/* UI Official Letterhead Watermark Overlay */}
-          {showWatermark && <UIBackground />}
-
-          <div className="relative z-10 space-y-6">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white border-b pb-4 border-gray-200 dark:border-gray-800 tracking-tight">
-              {title}
-            </h1>
-            <div
-              className={`prose max-w-none leading-relaxed ${
-                theme === 'dark' ? 'prose-invert text-gray-200' : 'prose-indigo text-gray-800'
-              }`}
-              dangerouslySetInnerHTML={{ __html: sanitizedContent }}
-            />
+            <div className="text-right">
+              <p>Official Publication • 2025 Edition</p>
+              <p className="text-gray-400 text-[10px]">Page 1 of 1</p>
+            </div>
           </div>
         </div>
       </div>
