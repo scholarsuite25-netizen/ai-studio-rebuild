@@ -19,14 +19,14 @@ export const UIBackground: React.FC = () => {
         </svg>
       </div>
 
-      {/* Top-Right Official UI Crest Logo Badge */}
+      {/* Top-Right Official UI Crest Logo Badge (Exact Uploaded PNG) */}
       <div className="absolute top-6 right-8 w-16 h-20 flex flex-col items-center">
-        <img src="/ui_logo.svg" alt="University of Ibadan Crest" className="w-full h-full drop-shadow-md object-contain" />
+        <img src="/ui_logo.png" alt="University of Ibadan Crest Logo" className="w-full h-full drop-shadow-md object-contain" />
       </div>
 
-      {/* Centered Official UI Crest Logo Watermark (8% Opacity for Text Legibility) */}
+      {/* Centered Official UI Crest Logo Watermark (Exact Uploaded PNG at 8% Opacity) */}
       <div className="absolute inset-0 flex items-center justify-center opacity-[0.08] pointer-events-none">
-        <img src="/ui_logo.svg" alt="UI Official Watermark" className="w-[450px] h-[550px] object-contain" />
+        <img src="/ui_logo.png" alt="UI Official Watermark" className="w-[450px] h-[550px] object-contain" />
       </div>
 
       {/* Bottom-Right Corner Accent Lines (Navy & Gold) */}

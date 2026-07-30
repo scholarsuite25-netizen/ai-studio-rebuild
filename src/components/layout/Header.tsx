@@ -48,9 +48,9 @@ export const Header: React.FC = () => {
       {/* RMO Institutional Crest & Title */}
       <div className="flex items-center space-x-3">
         <div className="flex items-center space-x-2.5">
-          {/* Authentic UI Crest Logo */}
+          {/* Authentic Exact Uploaded UI Crest Logo Image */}
           <div className="w-8 h-10 flex items-center justify-center">
-            <img src="/ui_logo.svg" alt="University of Ibadan Crest" className="w-full h-full object-contain drop-shadow-sm" />
+            <img src="/ui_logo.png" alt="University of Ibadan Crest Logo" className="w-full h-full object-contain drop-shadow-sm" />
           </div>
           <div className="hidden sm:flex flex-col">
             <span className="font-bold text-[#002147] text-sm leading-tight">UI RMO Studio</span>
