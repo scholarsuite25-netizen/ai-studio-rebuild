@@ -6,7 +6,7 @@ export const UIBackground: React.FC = () => {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
       {/* Top-Left Corner Accent Lines (Navy & Gold) */}
-      <div className="absolute top-0 left-0 w-44 h-44">
+      <div className="absolute top-0 left-0 w-44 h-44 z-10">
         <svg className="w-full h-full" viewBox="0 0 200 200" fill="none">
           <polygon points="0,0 70,0 0,70" fill="#002147" /> {/* Deep Navy */}
           <polygon points="70,0 85,0 0,85 0,70" fill="#DAA520" /> {/* Gold */}
@@ -19,18 +19,22 @@ export const UIBackground: React.FC = () => {
         </svg>
       </div>
 
-      {/* Top-Right Official UI Crest Logo Badge (Exact Uploaded PNG) */}
-      <div className="absolute top-6 right-8 w-16 h-20 flex flex-col items-center">
+      {/* Top-Right Official UI Crest Logo Badge (174KB High-Res Original PNG) */}
+      <div className="absolute top-6 right-8 w-16 h-20 flex flex-col items-center z-10">
         <img src="/ui_logo.png" alt="University of Ibadan Crest Logo" className="w-full h-full drop-shadow-md object-contain" />
       </div>
 
-      {/* Centered Official UI Crest Logo Watermark (Exact Uploaded PNG at 8% Opacity) */}
-      <div className="absolute inset-0 flex items-center justify-center opacity-[0.08] pointer-events-none">
-        <img src="/ui_logo.png" alt="UI Official Watermark" className="w-[450px] h-[550px] object-contain" />
+      {/* Centered Official High-Res UI Crest Logo Watermark (Visible & Crisp at 14% Opacity) */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
+        <img
+          src="/ui_logo.png"
+          alt="UI Official Watermark Logo"
+          className="w-[420px] max-w-[80%] h-auto max-h-[550px] object-contain opacity-[0.14] filter contrast-125"
+        />
       </div>
 
       {/* Bottom-Right Corner Accent Lines (Navy & Gold) */}
-      <div className="absolute bottom-0 right-0 w-44 h-44">
+      <div className="absolute bottom-0 right-0 w-44 h-44 z-10">
         <svg className="w-full h-full" viewBox="0 0 200 200" fill="none">
           <polygon points="200,200 130,200 200,130" fill="#002147" />
           <polygon points="130,200 115,200 200,115 200,130" fill="#DAA520" />
